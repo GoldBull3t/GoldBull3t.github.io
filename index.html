@@ -100,25 +100,287 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const temas = [
-        {
-            titulo: "Semana da Gratidão",
-            descricao: "Um convite para cultivar um coração grato.",
-            dias: [
-                { arc: { texto: "Em tudo dai graças...", ref: "1 Tessalonicenses 5:18", devocional: "A gratidão deve ser um estilo de vida, não um sentimento ocasional.", oracao: "Senhor, ajuda-me a ser grato em todas as circunstâncias." } },
-                { arc: { texto: "Rendei graças ao Senhor, porque ele é bom...", ref: "Salmos 107:1", devocional: "A bondade de Deus é o maior motivo para a nossa gratidão.", oracao: "Pai, obrigado pela Tua infinita bondade e amor." } },
-                // ... mais 5 dias para completar a semana
-            ]
-        },
-        {
-            titulo: "Semana do Perdão",
-            descricao: "Aprendendo a liberar e receber o perdão.",
-            dias: [
-                { arc: { texto: "Suportando-vos uns aos outros e perdoando-vos...", ref: "Colossenses 3:13", devocional: "Assim como Cristo nos perdoou, devemos perdoar os outros.", oracao: "Senhor, dá-me um coração perdoador, como o Teu." } },
-                // ... mais 6 dias
-            ]
-        }
-        // Adicione mais temas semanais aqui
-    ];
+    // Semana 1
+    {
+        titulo: "Semana da Gratidão",
+        descricao: "Um co te para cultivar um coração grato.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Deem graças ao Senhor, porque ele é bom; o seu amor dura para sempre.", ref: "1 Crônicas 16:34", devocional: "Comece a semana lembrando da bondade e do amor eterno de Deus. A gratidão abre nossos olhos para a Sua fidelidade constante.", oracao: "Senhor, meu coração está cheio de gratidão por quem Tu és. Obrigado pelo Teu amor que nunca falha." },
+            },
+            { // Segunda
+                arc: { texto: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.", ref: "1 Tessalonicenses 5:18", devocional: "A gratidão não depende das circunstâncias, mas é uma decisão de fé. Encontrar motivos para agradecer, mesmo nas dificuldades, é a vontade de Deus.", oracao: "Pai, ajuda-me a ser grato hoje, não importa o que aconteça. Confio que a Tua vontade é boa." },
+            },
+            { // Terça
+                arc: { texto: "Cantarei ao Senhor enquanto eu viver; cantarei louvores ao meu Deus enquanto eu existir.", ref: "Salmos 104:33", devocional: "O louvor é a expressão da gratidão. Que sua vida seja uma canção contínua de adoração ao Criador.", oracao: "Senhor, que minhas palavras e pensamentos hoje sejam um louvor a Ti." },
+            },
+            { // Quarta
+                arc: { texto: "Rendam graças ao Senhor pela sua benignidade e pelas suas maravilhas para com os filhos dos homens!", ref: "Salmos 107:8", devocional: "Pense nas maravilhas que Deus já fez em sua vida e na vida de outros. Ele é um Deus de milagres!", oracao: "Obrigado, Pai, pelas Tuas obras maravilhosas que testemunho todos os dias." },
+            },
+            { // Quinta
+                arc: { texto: "E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus Pai.", ref: "Colossenses 3:17", devocional: "A gratidão deve permear todas as áreas da nossa vida, transformando nossas ações e palavras em atos de adoração.", oracao: "Senhor, que tudo o que eu fizer hoje seja para a Tua glória e com um coração grato." },
+            },
+            { // Sexta
+                arc: { texto: "Entrai pelas portas dele com louvor e em seus átrios, com hinos; louvai-o e bendizei o seu nome.", ref: "Salmos 100:4", devocional: "Aproxime-se de Deus com um coração que já está preparado para agradecer. A gratidão abre as portas da Sua presença.", oracao: "Pai, eu entro na Tua presença hoje com um coração cheio de louvor. Obrigado por me acolheres." },
+            },
+            { // Sábado
+                arc: { texto: "O meu cálice transborda.", ref: "Salmos 23:5", devocional: "Ao final da semana, reflita sobre como Deus não apenas supre suas necessidades, mas o abençoa abundantemente. Sua provisão vai além do necessário.", oracao: "Senhor, obrigado por Tua generosidade que transborda em minha vida. Sou grato por tudo." },
+            }
+        ]
+    },
+    // Semana 2
+    {
+        titulo: "Semana do Perdão",
+        descricao: "Aprendendo a liberar e receber o perdão de Deus.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda injustiça.", ref: "1 João 1:9", devocional: "O perdão de Deus está disponível a todos que se arrependem. A confissão é o primeiro passo para a restauração.", oracao: "Senhor, confesso meus pecados e falhas. Obrigado por Tua fidelidade em me perdoar e purificar." },
+            },
+            { // Segunda
+                arc: { texto: "Suportando-vos uns aos outros e perdoando-vos uns aos outros, se algum tiver queixa contra outro; assim como Cristo vos perdoou, assim fazei vós também.", ref: "Colossenses 3:13", devocional: "O perdão que recebemos de Cristo é o modelo para o perdão que devemos oferecer aos outros. É um mandamento, não uma opção.", oracao: "Pai, dá-me um coração perdoador. Ajuda-me a liberar o perdão assim como Tu me perdoaste." },
+            },
+            { // Terça
+                arc: { texto: "Porque, se perdoardes aos homens as suas ofensas, também vosso Pai celestial vos perdoará a vós.", ref: "Mateus 6:14", devocional: "Há uma conexão direta entre nossa disposição para perdoar e nossa experiência do perdão de Deus. Liberar os outros nos liberta.", oracao: "Senhor, eu escolho perdoar aqueles que me ofenderam. Libera meu coração de toda amargura." },
+            },
+            { // Quarta
+                arc: { texto: "Antes, sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo.", ref: "Efésios 4:32", devocional: "O perdão deve ser acompanhado de bondade e misericórdia, refletindo o caráter de Deus.", oracao: "Espírito Santo, enche-me de bondade e misericórdia para com todos ao meu redor." },
+            },
+            { // Quinta
+                arc: { texto: "Não julgueis e não sereis julgados; não condeneis e não sereis condenados; soltai e soltar-vos-ão.", ref: "Lucas 6:37", devocional: "A prática do perdão envolve abrir mão do nosso direito de julgar e condenar, entregando a justiça nas mãos de Deus.", oracao: "Senhor, ajude-me a não julgar, mas a oferecer a mesma graça que recebi de Ti." },
+            },
+            { // Sexta
+                arc: { texto: "O que encobre as suas transgressões nunca prosperará; mas o que as confessa e deixa alcançará misericórdia.", ref: "Provérbios 28:13", devocional: "O verdadeiro arrependimento não apenas confessa o pecado, mas o abandona. Esse é o caminho para a misericórdia.", oracao: "Pai, não quero esconder minhas falhas. Ajuda-me a confessá-las e a abandoná-las completamente." },
+            },
+            { // Sábado
+                arc: { texto: "Quanto está longe o Oriente do Ocidente, assim afasta de nós as nossas transgressões.", ref: "Salmos 103:12", devocional: "Reflita na imensidão do perdão de Deus. Quando Ele perdoa, Ele remove nosso pecado para nunca mais ser lembrado.", oracao: "Obrigado, Senhor, por um perdão tão completo e definitivo. Descanso na Tua graça redentora." },
+            }
+        ]
+    },
+    // Semana 3
+    {
+        titulo: "Semana da Confiança",
+        descricao: "Fortalecendo a fé e a dependência em Deus.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.", ref: "Provérbios 3:5", devocional: "A confiança total em Deus significa render nossa lógica e planos a Ele, crendo que Seus caminhos são mais altos.", oracao: "Senhor, eu entrego meu coração e meus planos a Ti. Guia-me na Tua sabedoria." },
+            },
+            { // Segunda
+                arc: { texto: "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei?", ref: "Salmos 27:1", devocional: "Quando Deus é a nossa fonte de luz e força, o medo perde o seu poder. A confiança em Deus dissipa a ansiedade.", oracao: "Pai, Tu és a minha luz. Dissipa toda escuridão e medo do meu coração hoje." },
+            },
+            { // Terça
+                arc: { texto: "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.", ref: "1 Pedro 5:7", devocional: "A confiança é um ato de entrega. Deus nos co da a transferir o peso de nossas preocupações para Ele, pois Ele se importa.", oracao: "Senhor, eu lanço sobre Ti toda a minha ansiedade. Obrigado por cuidares de mim." },
+            },
+            { // Quarta
+                arc: { texto: "Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão e não se cansarão; caminharão e não se fatigarão.", ref: "Isaías 40:31", devocional: "Esperar no Senhor é um ato de confiança ativa. Essa espera nos fortalece e nos dá uma perspectiva divina sobre as dificuldades.", oracao: "Pai, renova minhas forças enquanto espero em Ti. Ajuda-me a voar acima das minhas circunstâncias." },
+            },
+            { // Quinta
+                arc: { texto: "O nome do Senhor é uma torre forte; os justos correm para ela e estão seguros.", ref: "Provérbios 18:10", devocional: "Nosso lugar de segurança não é um local físico, mas uma pessoa: o Senhor. Em tempos de perigo, corra para Ele.", oracao: "Senhor Jesus, Tu és minha torre forte. Em Ti, encontro refúgio e segurança." },
+            },
+            { // Sexta
+                arc: { texto: "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo.", ref: "Salmos 23:4", devocional: "A confiança não nos isenta dos vales escuros, mas garante a presença constante de Deus conosco, nos guiando através deles.", oracao: "Senhor, mesmo nos momentos mais sombrios, eu confio na Tua presença que me conforta e me guia." },
+                 : { texto: "Mesmo quando eu andar por um vale de trevas e morte, não temerei perigo algum, pois tu estás comigo.", ref: "Salmos 23:4", devocional: "A confiança não nos isenta dos vales escuros, mas garante a presença constante de Deus conosco, nos guiando através deles.", oracao: "Senhor, mesmo nos momentos mais sombrios, eu confio na Tua presença que me conforta e me guia." }
+            },
+            { // Sábado
+                arc: { texto: "Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz e não de mal, para vos dar o fim que esperais.", ref: "Jeremias 29:11", devocional: "Descanse na certeza de que os planos de Deus para você são bons. Ele tem um futuro e uma esperança preparados.", oracao: "Obrigado, Pai, pelos Teus bons planos. Ajuda-me a confiar no Teu propósito, mesmo quando não o vejo claramente." },
+            }
+        ]
+    },
+    // Semana 4
+    {
+        titulo: "Semana da Paz",
+        descricao: "Encontrando a paz de Deus que excede todo entendimento.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá. Não se turbe o vosso coração, nem se atemorize.", ref: "João 14:27", devocional: "A paz de Cristo é diferente da paz do mundo. Ela não depende da ausência de problemas, mas da presença de Deus.", oracao: "Jesus, enche-me com a Tua paz hoje. Que meu coração não se perturbe, pois confio em Ti." },
+            },
+            { // Segunda
+                arc: { texto: "E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos sentimentos em Cristo Jesus.", ref: "Filipenses 4:7", devocional: "A paz de Deus atua como uma guarda protetora sobre nossa mente e emoções, protegendo-nos da ansiedade e do medo.", oracao: "Senhor, que a Tua paz sobrenatural guarde meu coração e minha mente hoje. Protege-me das preocupações." },
+            },
+            { // Terça
+                arc: { texto: "Tu conservarás em paz aquele cuja mente está firme em ti; porque ele confia em ti.", ref: "Isaías 26:3", devocional: "Manter nossa mente focada em Deus é a chave para experimentar Sua paz perfeita. Onde está seu foco hoje?", oracao: "Pai, ajude-me a manter minha mente firme em Ti. Que meus pensamentos se alinhem com a Tua verdade e amor." },
+            },
+            { // Quarta
+                arc: { texto: "Grande paz têm os que amam a tua lei, e para eles não há tropeço.", ref: "Salmos 119:165", devocional: "Amar e meditar na Palavra de Deus traz estabilidade e paz interior, nos guardando de tropeçar.", oracao: "Senhor, que eu encontre grande paz ao amar e obedecer à Tua Palavra. Firma os meus passos." },
+            },
+            { // Quinta
+                arc: { texto: "Vinde a mim, todos os que estais cansados и oprimidos, e eu vos aliviarei.", ref: "Mateus 11:28", devocional: "A paz de Cristo também é descanso. Ele nos co da a entregar nossos fardos e encontrar alívio Nele.", oracao: "Jesus, eu vou a Ti com meu cansaço e minhas cargas. Por favor, dá-me o Teu descanso e a Tua paz." },
+            },
+            { // Sexta
+                arc: { texto: "Sede quietos e sabei que eu sou Deus.", ref: "Salmos 46:10", devocional: "Às vezes, a paz é encontrada no silêncio e na quietude, ao simplesmente reconhecermos a soberania de Deus.", oracao: "Senhor, acalma minha alma agitada. Ajuda-me a ficar quieto e a saber que Tu estás no controle." },
+            },
+            { // Sábado
+                arc: { texto: "Justificados, pois, pela fé, temos paz com Deus, por nosso Senhor Jesus Cristo.", ref: "Romanos 5:1", devocional: "A base de toda a paz é a nossa reconciliação com Deus através de Jesus. Lembre-se que você não é mais inimigo, mas filho.", oracao: "Obrigado, Jesus, por teres feito a paz entre mim e o Pai. Descanso na minha justificação pela fé." },
+            }
+        ]
+    },
+    // Semana 5
+    {
+        titulo: "Semana da Esperança",
+        descricao: "Ancorando a alma na esperança que vem de Deus.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Bendito seja o Deus e Pai de nosso Senhor Jesus Cristo, que, segundo a sua grande misericórdia, nos gerou de novo para uma viva esperança.", ref: "1 Pedro 1:3", devocional: "Nossa esperança não é um desejo vago, mas uma certeza viva, fundamentada na ressurreição de Jesus.", oracao: "Pai, obrigado por me dares uma esperança viva através de Cristo. Que essa esperança ilumine meu caminho." },
+            },
+            { // Segunda
+                arc: { texto: "Ora, a esperança não traz confusão, porquanto o amor de Deus está derramado em nossos corações pelo Espírito Santo que nos foi dado.", ref: "Romanos 5:5", devocional: "A esperança cristã nunca decepciona, porque é garantida pelo amor de Deus derramado em nós pelo Espírito Santo.", oracao: "Espírito Santo, enche-me com o amor de Deus e fortalece a minha esperança hoje." },
+            },
+            { // Terça
+                arc: { texto: "A qual temos como âncora da alma, segura e firme e que penetra até ao interior do véu.", ref: "Hebreus 6:19", devocional: "A nossa esperança em Cristo é a âncora que mantém nossa alma firme, mesmo em meio às tempestades da vida.", oracao: "Senhor, que a minha esperança em Ti seja a âncora firme da minha alma hoje. Mantém-me seguro." },
+            },
+            { // Quarta
+                arc: { texto: "Mas os que esperam no Senhor renovarão as suas forças.", ref: "Isaías 40:31", devocional: "Esperar em Deus é uma fonte de força. A esperança nos capacita a continuar, mesmo quando estamos cansados.", oracao: "Pai, coloco minha esperança em Ti. Renova minhas forças para enfrentar os desafios de hoje." },
+            },
+            { // Quinta
+                arc: { texto: "Por que estás abatida, ó minha alma, e por que te perturbas em mim? Espera em Deus, pois ainda o louvarei, a ele que é a salvação da minha face e o meu Deus.", ref: "Salmos 42:11", devocional: "Em tempos de desânimo, pregue a si mesmo. Lembre sua alma de colocar a esperança em Deus, pois Ele é a sua salvação.", oracao: "Minha alma, espera em Deus! Eu escolho louvá-Lo, mesmo em meio à tristeza, pois Ele é minha esperança." },
+            },
+            { // Sexta
+                arc: { texto: "O ladrão não vem senão a roubar, a matar e a destruir; eu vim para que tenham vida e a tenham com abundância.", ref: "João 10:10", devocional: "A esperança cristã não é apenas para a eternidade, mas para o agora. Jesus veio para nos dar uma vida plena e abundante hoje.", oracao: "Jesus, obrigado pela vida abundante que Tu ofereces. Ajuda-me a viver plenamente em Ti." },
+            },
+            { // Sábado
+                arc: { texto: "E eis que estou convosco todos os dias, até à consumação dos séculos.", ref: "Mateus 28:20", devocional: "Nossa maior esperança é a presença contínua de Cristo conosco. Não importa o que aconteça, Ele nunca nos deixará.", oracao: "Obrigado, Jesus, pela promessa da Tua presença constante. Isso me dá esperança e coragem para cada dia." },
+            }
+        ]
+    },
+    // Semana 6
+    {
+        titulo: "Semana da Força",
+        descricao: "Encontrando força em Deus nos momentos de fraqueza.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Posso todas as coisas naquele que me fortalece.", ref: "Filipenses 4:13", devocional: "Nossa capacidade de superar desafios não vem de nós mesmos, mas da força que Cristo nos dá.", oracao: "Senhor, em minhas fraquezas, eu busco a Tua força. Capacita-me a enfrentar tudo o que vier hoje." },
+            },
+            { // Segunda
+                arc: { texto: "A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza.", ref: "2 Coríntios 12:9", devocional: "Nossas fraquezas são oportunidades para o poder de Deus se manifestar. Não as esconda, mas entregue-as a Ele.", oracao: "Pai, sou fraco, mas Tu és forte. Que o Teu poder se aperfeiçoe na minha fraqueza hoje." },
+            },
+            { // Terça
+                arc: { texto: "Deus é o nosso refúgio e fortaleza, socorro bem-presente na angústia.", ref: "Salmos 46:1", devocional: "Deus não é apenas uma fortaleza distante, mas um socorro imediato e acessível nos momentos de dificuldade.", oracao: "Senhor, Tu és meu refúgio e fortaleza. Socorre-me nesta angústia e sê a minha força." },
+            },
+            { // Quarta
+                arc: { texto: "O Senhor dará força ao seu povo; o Senhor abençoará o seu povo com paz.", ref: "Salmos 29:11", devocional: "A força que Deus dá é acompanhada de Sua paz. Ele não apenas nos capacita a lutar, mas nos sustenta com Sua calma.", oracao: "Pai, dá-me a Tua força e abençoa o meu dia com a Tua paz." },
+            },
+            { // Quinta
+                arc: { texto: "Finalmente, fortalecei-vos no Senhor e na força do seu poder.", ref: "Efésios 6:10", devocional: "Somos chamados a nos revestir da força de Deus, não a lutar com a nossa própria. A força Dele é ilimitada.", oracao: "Senhor, eu me fortaleço em Ti e no Teu poder. Reveste-me com a Tua armadura para que eu possa permanecer firme." },
+            },
+            { // Sexta
+                arc: { texto: "Não to mandei eu? Esforça-te e tem bom ânimo; não pasmes, nem te espantes, porque o Senhor, teu Deus, é contigo, por onde quer que andares.", ref: "Josué 1:9", devocional: "A coragem não é a ausência de medo, mas a ação apesar do medo, confiando na presença de Deus.", oracao: "Senhor, obrigado por estares comigo. Dá-me coragem e bom ânimo para seguir os Teus mandamentos." },
+            },
+            { // Sábado
+                arc: { texto: "O gozo do Senhor é a vossa força.", ref: "Neemias 8:10", devocional: "A verdadeira força espiritual não vem da austeridade, mas da alegria encontrada na presença de Deus. Celebre o Senhor!", oracao: "Pai, que a Tua alegria seja a minha força hoje. Enche meu coração de júbilo e gratidão." },            }
+        ]
+    },
+    // Semana 7
+    {
+        titulo: "Semana do Amor",
+        descricao: "Explorando a profundidade do amor de Deus e como amar os outros.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Nisto todos conhecerão que sois meus discípulos, se vos amardes uns aos outros.", ref: "João 13:35", devocional: "O amor mútuo é a marca distintiva do discípulo de Cristo. É o nosso maior testemunho para o mundo.", oracao: "Senhor, ensina-me a amar meus irmãos como Tu me amaste. Que o nosso amor revele quem Tu és." },
+            },
+            { // Segunda
+                arc: { texto: "O amor é sofredor, é benigno; o amor não é invejoso; o amor não trata com leviandade, não se ensoberbece.", ref: "1 Coríntios 13:4", devocional: "O amor não é apenas um sentimento, mas uma série de ações: paciência, bondade, humildade. Como você pode praticar isso hoje?", oracao: "Pai, enche-me com o Teu tipo de amor. Que eu seja paciente e bondoso com todos." },
+            },
+            { // Terça
+                arc: { texto: "Mas Deus prova o seu amor para conosco em que Cristo morreu por nós, sendo nós ainda pecadores.", ref: "Romanos 5:8", devocional: "O amor de Deus é incondicional. Ele não esperou que nos tornássemos perfeitos para nos amar; Ele nos amou em nosso pior estado.", oracao: "Obrigado, Senhor, por um amor tão grande. Fico maravilhado que morreste por mim quando eu ainda era pecador." },
+            },
+            { // Quarta
+                arc: { texto: "Nós amamos porque ele nos amou primeiro.", ref: "1 João 4:19", devocional: "Nossa capacidade de amar os outros é uma resposta ao imenso amor que primeiro recebemos de Deus.", oracao: "Pai, que o Teu amor por mim transborde do meu coração e alcance as pessoas ao meu redor." },
+            },
+            { // Quinta
+                arc: { texto: "Amarás o teu próximo como a ti mesmo.", ref: "Marcos 12:31", devocional: "O segundo grande mandamento nos chama a estender ao próximo o mesmo cuidado, respeito e compaixão que temos por nós mesmos.", oracao: "Senhor, ajuda-me a ver os outros como Tu os vês e a amá-los de forma prática e sacrificial." },
+            },
+            { // Sexta
+                arc: { texto: "Ninguém tem maior amor do que este: de dar alguém a sua vida pelos seus amigos.", ref: "João 15:13", devocional: "O amor sacrificial é o ápice do amor. Jesus nos deu o exemplo máximo, e nos chama a seguir seus passos.", oracao: "Jesus, Tu deste a Tua vida por mim. Dá-me um coração disposto a me sacrificar pelos outros em amor." },
+            },
+            { // Sábado
+                arc: { texto: "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.", ref: "João 3:16", devocional: "Termine a semana meditando na maior declaração de amor do universo. O amor de Deus é a base de tudo.", oracao: "Obrigado, Pai, pelo Teu amor que deu, que salva e que me garante a vida eterna. Eu Te amo." },
+            }
+        ]
+    },
+    // Semana 8
+    {
+        titulo: "Semana da Sabedoria",
+        descricao: "Buscando a sabedoria que vem do alto.",
+        dias: [
+            { // Domingo
+                arc: { texto: "O temor do Senhor é o princípio da sabedoria.", ref: "Provérbios 9:10", devocional: "A verdadeira sabedoria começa com uma atitude de reverência e respeito para com Deus.", oracao: "Senhor, ensina-me a temer-Te e a buscar a Tua sabedoria acima de todo conhecimento humano." },
+            },
+            { // Segunda
+                arc: { texto: "Se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente e não o lança em rosto; e ser-lhe-á dada.", ref: "Tiago 1:5", devocional: "Deus se agrada em dar sabedoria. Não hesite em pedi-la. Ele a oferece generosamente a todos que a buscam.", oracao: "Pai, eu peço por sabedoria hoje para tomar as decisões certas e para viver de um modo que Te honre." },
+            },
+            { // Terça
+                arc: { texto: "Mas a sabedoria que vem do alto é, primeiramente, pura, depois, pacífica, moderada, tratável, cheia de misericórdia e de bons frutos, sem parcialidade e sem hipocrisia.", ref: "Tiago 3:17", devocional: "A sabedoria divina se manifesta em nosso caráter. Ela produz paz, misericórdia e integridade.", oracao: "Senhor, que a Tua sabedoria produza bons frutos em minha vida. Molda meu caráter para ser como o Teu." },
+            },
+            { // Quarta
+                arc: { texto: "Ensina-nos a contar os nossos dias, de tal maneira que alcancemos corações sábios.", ref: "Salmos 90:12", devocional: "A sabedoria inclui a consciência da brevidade da vida. Viver com uma perspectiva eterna nos ajuda a tomar decisões mais sábias.", oracao: "Pai, dá-me um coração sábio. Ajuda-me a usar meu tempo de forma que tenha significado eterno." },
+            },
+            { // Quinta
+                arc: { texto: "O que adquire sabedoria ama a sua alma; o que guarda o entendimento achará o bem.", ref: "Provérbios 19:8", devocional: "Buscar sabedoria é um ato de amor próprio. É investir em seu bem-estar espiritual e eterno.", oracao: "Senhor, eu quero amar minha alma buscando a Tua sabedoria. Guia-me no caminho do bem." },
+            },
+            { // Sexta
+                arc: { texto: "Não se aparte da tua boca o livro desta Lei; antes, medita nele dia e noite, para que tenhas cuidado de fazer conforme tudo quanto nele está escrito; porque, então, farás prosperar o teu caminho e, então, prudentemente te conduzirás.", ref: "Josué 1:8", devocional: "A meditação constante na Palavra de Deus é a fonte da verdadeira sabedoria e do sucesso espiritual.", oracao: "Pai, que a Tua Palavra esteja sempre em minha mente e coração. Dá-me sabedoria para aplicá-la em minha vida." },
+            },
+            { // Sábado
+                arc: { texto: "Porque o Senhor dá a sabedoria, e da sua boca vem o conhecimento e o entendimento.", ref: "Provérbios 2:6", devocional: "Toda a verdadeira sabedoria tem sua origem em Deus. Busque-O como a fonte de todo o entendimento.", oracao: "Obrigado, Senhor, por seres a fonte de toda a sabedoria. Abre minha mente para receber o Teu conhecimento." },
+            }
+        ]
+    },
+    // Semana 9
+    {
+        titulo: "Semana da Humildade",
+        descricao: "Aprendendo a ter o coração e a mente de Cristo.",
+        dias: [
+            { // Domingo
+                arc: { texto: "De sorte que haja em vós o mesmo sentimento que houve também em Cristo Jesus, que, sendo em forma de Deus, não teve por usurpação ser igual a Deus, mas aniquilou-se a si mesmo, tomando a forma de servo.", ref: "Filipenses 2:5-7", devocional: "A humildade suprema é encontrada em Jesus, que abriu mão de Sua glória para nos servir. Este é o nosso maior exemplo.", oracao: "Senhor, dá-me o mesmo sentimento que houve em Cristo. Ensina-me a ser humilde e a servir os outros." },
+            },
+            { // Segunda
+                arc: { texto: "Humilhai-vos, pois, debaixo da potente mão de Deus, para que, a seu tempo, vos exalte.", ref: "1 Pedro 5:6", devocional: "A humildade perante Deus é um ato de submissão e confiança. Quando nos humilhamos, abrimos espaço para que Ele nos exalte no tempo certo.", oracao: "Pai, eu me humilho sob a Tua mão poderosa. Confio no Teu tempo e na Tua vontade para minha vida." },
+            },
+            { // Terça
+                arc: { texto: "O galardão da humildade e o temor do Senhor são riquezas, e honra, e vida.", ref: "Provérbios 22:4", devocional: "A humildade não é um caminho de perdas, mas de ganhos. Ela nos leva a verdadeiras riquezas, honra e vida.", oracao: "Senhor, que eu busque a humildade e o temor a Ti, sabendo que neles encontro as verdadeiras bênçãos." },
+            },
+            { // Quarta
+                arc: { texto: "Com toda a humildade e mansidão, com longanimidade, suportando-vos uns aos outros em amor.", ref: "Efésios 4:2", devocional: "A humildade é essencial para a unidade da igreja. Ela nos capacita a sermos pacientes e a suportarmos uns aos outros em amor.", oracao: "Pai, reveste-me de humildade e mansidão. Ajuda-me a ser um pacificador em meus relacionamentos." },
+            },
+            { // Quinta
+                arc: { texto: "Nada façais por contenda ou por vanglória, mas por humildade; cada um considere os outros superiores a si mesmo.", ref: "Filipenses 2:3", devocional: "A humildade nos leva a colocar os interesses dos outros acima dos nossos. É o antídoto para o egoísmo e a competição.", oracao: "Senhor, livra-me do orgulho e da vanglória. Ensina-me a considerar os outros como superiores a mim." },
+            },
+            { // Sexta
+                arc: { texto: "Bem-aventurados os pobres de espírito, porque deles é o Reino dos céus.", ref: "Mateus 5:3", devocional: "Ser 'pobre de espírito' é reconhecer nossa total dependência de Deus. Essa atitude de humildade é a porta de entrada para o Seu Reino.", oracao: "Pai, reconheço minha necessidade de Ti. Sou pobre de espírito e dependo inteiramente da Tua graça." },
+            },
+            { // Sábado
+                arc: { texto: "Porque todo aquele que se exalta será humilhado, e aquele que se humilha será exaltado.", ref: "Lucas 14:11", devocional: "No Reino de Deus, a lógica é invertida. O caminho para cima é para baixo. A exaltação vem através da humildade.", oracao: "Senhor, eu escolho o caminho da humildade. Que a exaltação venha de Ti, no Teu tempo e da Tua maneira." },
+            }
+        ]
+    },
+    // Semana 10
+    {
+        titulo: "Semana da Eternidade",
+        descricao: "Vivendo com uma perspectiva eterna.",
+        dias: [
+            { // Domingo
+                arc: { texto: "Porque para mim o viver é Cristo, e o morrer é ganho.", ref: "Filipenses 1:21", devocional: "A perspectiva eterna transforma nossa visão da morte. Para o crente, morrer não é uma perda, mas um ganho: a presença plena de Cristo.", oracao: "Senhor, que meu foco seja viver para Ti, sabendo que meu futuro eterno está seguro em Tuas mãos." },
+            },
+            { // Segunda
+                arc: { texto: "Não ajunteis tesouros na terra, onde a traça e a ferrugem tudo consomem... mas ajuntai tesouros no céu.", ref: "Mateus 6:19-20", devocional: "A perspectiva eterna muda nossos valores. Investimos no que dura para sempre, não no que é temporário e pode ser perdido.", oracao: "Pai, ajuda-me a investir no Teu Reino. Que meu coração esteja nos tesouros celestiais, não nos terrenos." },
+            },
+            { // Terça
+                arc: { texto: "Porque a nossa leve e momentânea tribulação produz para nós um peso eterno de glória mui excelente.", ref: "2 Coríntios 4:17", devocional: "A perspectiva eterna nos dá força para suportar as dificuldades presentes, sabendo que elas estão produzindo algo de valor eterno.", oracao: "Senhor, ajuda-me a ver minhas lutas de hoje à luz da glória eterna que me espera. Dá-me perseverança." },
+            },
+            { // Quarta
+                arc: { texto: "E Deus limpará de seus olhos toda lágrima, e não haverá mais morte, nem pranto, nem clamor, nem dor, porque já as primeiras coisas são passadas.", ref: "Apocalipse 21:4", devocional: "A nossa esperança eterna é um futuro sem dor, sem tristeza e sem morte, na presença gloriosa de Deus.", oracao: "Pai, anseio pelo dia em que estarás face a face comigo e enxugarás toda lágrima. Maranata!" },
+            },
+            { // Quinta
+                arc: { texto: "O céu e a terra passarão, mas as minhas palavras não hão de passar.", ref: "Mateus 24:35", devocional: "Em um mundo passageiro, a Palavra de Deus é a única coisa eterna e imutável. Construa sua vida sobre esta rocha.", oracao: "Senhor, que a Tua Palavra seja o fundamento da minha vida. Obrigado pela certeza e segurança que ela me traz." },
+            },
+            { // Sexta
+                arc: { texto: "Assim que, se alguém está em Cristo, nova criatura é: as coisas velhas já passaram; eis que tudo se fez novo.", ref: "2 Coríntios 5:17", devocional: "A vida eterna começa agora. Em Cristo, já somos novas criaturas, vivendo o início da eternidade hoje.", oracao: "Obrigado, Jesus, por me fazeres uma nova criação. Ajuda-me a viver a realidade do Teu Reino hoje." },
+            },
+            { // Sábado
+                arc: { texto: "Aquele que testifica estas coisas diz: Certamente, cedo venho. Amém! Ora, vem, Senhor Jesus!", ref: "Apocalipse 22:20", devocional: "A nossa maior esperança é a volta de Cristo. Que nosso coração anseie por esse dia, vivendo em santa expectativa.", oracao: "Vem, Senhor Jesus! Meu coração Te espera. Que eu viva cada dia preparado para o Teu retorno." },
+            }
+        ]
+    }
+];
 
     const textoElem = document.getElementById('texto-versiculo');
     const referenciaElem = document.getElementById('referencia-versiculo');
