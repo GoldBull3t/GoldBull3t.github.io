@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Devocional NFC</title>
+<title>Meu Devocional NFC Modificado</title>
 <style>
     body {
         margin: 0;
@@ -48,10 +48,13 @@
         transition: transform 0.2s, background-color 0.2s;
     }
     button:hover { transform: scale(1.05); }
-
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        background-color: #999;
+    }
     #share-button { background-color: #25D366; color: white; }
     #copy-button { background-color: #555; color: white; }
-    #listen-button { background-color: #fd7e14; color: white; }
 
     .extra-section {
         background-color: rgba(255, 255, 255, 0.9);
@@ -64,7 +67,20 @@
     }
     .extra-section h3 { margin-top: 0; font-size: 17px; color: #0056b3; }
     
-    #anotacoes { width: 100%; min-height: 60px; border: 1px solid #ccc; border-radius: 5px; padding: 8px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
+    #anotacoes { 
+        width: 100%; 
+        min-height: 60px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        padding: 8px; 
+        box-sizing: border-box; 
+        font-family: inherit; 
+        font-size: 14px; 
+    }
+    #anotacoes:disabled {
+        background-color: #f2f2f2;
+        cursor: not-allowed;
+    }
     
     .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
 </style>
@@ -79,7 +95,6 @@
     <span id="referencia-versiculo" aria-live="polite"></span>
 
     <div class="button-group">
-        <button id="listen-button">Ouvir</button>
         <button id="share-button">Partilhar</button>
         <button id="copy-button">Copiar</button>
     </div>
@@ -99,93 +114,49 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // MODIFICAÇÃO: Array de fundos para mudar a cor a cada dia
+    const backgrounds = [
+        'linear-gradient(135deg, #4facfe, #00f2fe)',
+        'linear-gradient(135deg, #ff8c00, #ff0080)',
+        'linear-gradient(135deg, #32cd32, #008080)',
+        'linear-gradient(135deg, #8a2be2, #4169e1)',
+        'linear-gradient(135deg, #ff6b6b, #feca57)',
+        'linear-gradient(135deg, #6a82fb, #fc5c7d)',
+        'linear-gradient(135deg, #00c9ff, #92fe9d)'
+    ];
+
     const temas = [
-    // Semana 1
-    {
-        titulo: "Semana da Gratidão",
-        descricao: "Um co te para cultivar um coração grato.",
-        dias: [
-            { // Domingo
-                arc: { texto: "Deem graças ao Senhor, porque ele é bom; o seu amor dura para sempre.", ref: "1 Crônicas 16:34", devocional: "Comece a semana lembrando da bondade e do amor eterno de Deus. A gratidão abre nossos olhos para a Sua fidelidade constante.", oracao: "Senhor, meu coração está cheio de gratidão por quem Tu és. Obrigado pelo Teu amor que nunca falha." },
-            },
-            { // Segunda
-                arc: { texto: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.", ref: "1 Tessalonicenses 5:18", devocional: "A gratidão não depende das circunstâncias, mas é uma decisão de fé. Encontrar motivos para agradecer, mesmo nas dificuldades, é a vontade de Deus.", oracao: "Pai, ajuda-me a ser grato hoje, não importa o que aconteça. Confio que a Tua vontade é boa." },
-            },
-            { // Terça
-                arc: { texto: "Cantarei ao Senhor enquanto eu viver; cantarei louvores ao meu Deus enquanto eu existir.", ref: "Salmos 104:33", devocional: "O louvor é a expressão da gratidão. Que sua vida seja uma canção contínua de adoração ao Criador.", oracao: "Senhor, que minhas palavras e pensamentos hoje sejam um louvor a Ti." },
-            },
-            { // Quarta
-                arc: { texto: "Rendam graças ao Senhor pela sua benignidade e pelas suas maravilhas para com os filhos dos homens!", ref: "Salmos 107:8", devocional: "Pense nas maravilhas que Deus já fez em sua vida e na vida de outros. Ele é um Deus de milagres!", oracao: "Obrigado, Pai, pelas Tuas obras maravilhosas que testemunho todos os dias." },
-            },
-            { // Quinta
-                arc: { texto: "E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus Pai.", ref: "Colossenses 3:17", devocional: "A gratidão deve permear todas as áreas da nossa vida, transformando nossas ações e palavras em atos de adoração.", oracao: "Senhor, que tudo o que eu fizer hoje seja para a Tua glória e com um coração grato." },
-            },
-            { // Sexta
-                arc: { texto: "Entrai pelas portas dele com louvor e em seus átrios, com hinos; louvai-o e bendizei o seu nome.", ref: "Salmos 100:4", devocional: "Aproxime-se de Deus com um coração que já está preparado para agradecer. A gratidão abre as portas da Sua presença.", oracao: "Pai, eu entro na Tua presença hoje com um coração cheio de louvor. Obrigado por me acolheres." },
-            },
-            { // Sábado
-                arc: { texto: "O meu cálice transborda.", ref: "Salmos 23:5", devocional: "Ao final da semana, reflita sobre como Deus não apenas supre suas necessidades, mas o abençoa abundantemente. Sua provisão vai além do necessário.", oracao: "Senhor, obrigado por Tua generosidade que transborda em minha vida. Sou grato por tudo." },
-            }
-        ]
-    },
-    // Semana 2
-    {
-        titulo: "Semana do Perdão",
-        descricao: "Aprendendo a liberar e receber o perdão de Deus.",
-        dias: [
-            { // Domingo
-                arc: { texto: "Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda injustiça.", ref: "1 João 1:9", devocional: "O perdão de Deus está disponível a todos que se arrependem. A confissão é o primeiro passo para a restauração.", oracao: "Senhor, confesso meus pecados e falhas. Obrigado por Tua fidelidade em me perdoar e purificar." },
-            },
-            { // Segunda
-                arc: { texto: "Suportando-vos uns aos outros e perdoando-vos uns aos outros, se algum tiver queixa contra outro; assim como Cristo vos perdoou, assim fazei vós também.", ref: "Colossenses 3:13", devocional: "O perdão que recebemos de Cristo é o modelo para o perdão que devemos oferecer aos outros. É um mandamento, não uma opção.", oracao: "Pai, dá-me um coração perdoador. Ajuda-me a liberar o perdão assim como Tu me perdoaste." },
-            },
-            { // Terça
-                arc: { texto: "Porque, se perdoardes aos homens as suas ofensas, também vosso Pai celestial vos perdoará a vós.", ref: "Mateus 6:14", devocional: "Há uma conexão direta entre nossa disposição para perdoar e nossa experiência do perdão de Deus. Liberar os outros nos liberta.", oracao: "Senhor, eu escolho perdoar aqueles que me ofenderam. Libera meu coração de toda amargura." },
-            },
-            { // Quarta
-                arc: { texto: "Antes, sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo.", ref: "Efésios 4:32", devocional: "O perdão deve ser acompanhado de bondade e misericórdia, refletindo o caráter de Deus.", oracao: "Espírito Santo, enche-me de bondade e misericórdia para com todos ao meu redor." },
-            },
-            { // Quinta
-                arc: { texto: "Não julgueis e não sereis julgados; não condeneis e não sereis condenados; soltai e soltar-vos-ão.", ref: "Lucas 6:37", devocional: "A prática do perdão envolve abrir mão do nosso direito de julgar e condenar, entregando a justiça nas mãos de Deus.", oracao: "Senhor, ajude-me a não julgar, mas a oferecer a mesma graça que recebi de Ti." },
-            },
-            { // Sexta
-                arc: { texto: "O que encobre as suas transgressões nunca prosperará; mas o que as confessa e deixa alcançará misericórdia.", ref: "Provérbios 28:13", devocional: "O verdadeiro arrependimento não apenas confessa o pecado, mas o abandona. Esse é o caminho para a misericórdia.", oracao: "Pai, não quero esconder minhas falhas. Ajuda-me a confessá-las e a abandoná-las completamente." },
-            },
-            { // Sábado
-                arc: { texto: "Quanto está longe o Oriente do Ocidente, assim afasta de nós as nossas transgressões.", ref: "Salmos 103:12", devocional: "Reflita na imensidão do perdão de Deus. Quando Ele perdoa, Ele remove nosso pecado para nunca mais ser lembrado.", oracao: "Obrigado, Senhor, por um perdão tão completo e definitivo. Descanso na Tua graça redentora." },
-            }
-        ]
-    },
-    // Semana 3
-    {
-        titulo: "Semana da Confiança",
-        descricao: "Fortalecendo a fé e a dependência em Deus.",
-        dias: [
-            { // Domingo
-                arc: { texto: "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.", ref: "Provérbios 3:5", devocional: "A confiança total em Deus significa render nossa lógica e planos a Ele, crendo que Seus caminhos são mais altos.", oracao: "Senhor, eu entrego meu coração e meus planos a Ti. Guia-me na Tua sabedoria." },
-            },
-            { // Segunda
-                arc: { texto: "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei?", ref: "Salmos 27:1", devocional: "Quando Deus é a nossa fonte de luz e força, o medo perde o seu poder. A confiança em Deus dissipa a ansiedade.", oracao: "Pai, Tu és a minha luz. Dissipa toda escuridão e medo do meu coração hoje." },
-            },
-            { // Terça
-                arc: { texto: "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.", ref: "1 Pedro 5:7", devocional: "A confiança é um ato de entrega. Deus nos co da a transferir o peso de nossas preocupações para Ele, pois Ele se importa.", oracao: "Senhor, eu lanço sobre Ti toda a minha ansiedade. Obrigado por cuidares de mim." },
-            },
-            { // Quarta
-                arc: { texto: "Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão e não se cansarão; caminharão e não se fatigarão.", ref: "Isaías 40:31", devocional: "Esperar no Senhor é um ato de confiança ativa. Essa espera nos fortalece e nos dá uma perspectiva divina sobre as dificuldades.", oracao: "Pai, renova minhas forças enquanto espero em Ti. Ajuda-me a voar acima das minhas circunstâncias." },
-            },
-            { // Quinta
-                arc: { texto: "O nome do Senhor é uma torre forte; os justos correm para ela e estão seguros.", ref: "Provérbios 18:10", devocional: "Nosso lugar de segurança não é um local físico, mas uma pessoa: o Senhor. Em tempos de perigo, corra para Ele.", oracao: "Senhor Jesus, Tu és minha torre forte. Em Ti, encontro refúgio e segurança." },
-            },
-            { // Sexta
-                arc: { texto: "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo.", ref: "Salmos 23:4", devocional: "A confiança não nos isenta dos vales escuros, mas garante a presença constante de Deus conosco, nos guiando através deles.", oracao: "Senhor, mesmo nos momentos mais sombrios, eu confio na Tua presença que me conforta e me guia." },
-            },
-            { // Sábado
-                arc: { texto: "Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz e não de mal, para vos dar o fim que esperais.", ref: "Jeremias 29:11", devocional: "Descanse na certeza de que os planos de Deus para você são bons. Ele tem um futuro e uma esperança preparados.", oracao: "Obrigado, Pai, pelos Teus bons planos. Ajuda-me a confiar no Teu propósito, mesmo quando não o vejo claramente." },
-            }
-        ]
-    },
-    // Semana 4
-    {
+        // Semana 1: Gratidão
+        { titulo: "Semana da Gratidão", descricao: "Um convite para cultivar um coração grato.", dias: [
+            { arc: { texto: "Deem graças ao Senhor, porque ele é bom; o seu amor dura para sempre.", ref: "1 Crônicas 16:34", devocional: "Comece a semana lembrando da bondade e do amor eterno de Deus. A gratidão abre nossos olhos para a Sua fidelidade constante.", oracao: "Senhor, meu coração está cheio de gratidão por quem Tu és. Obrigado pelo Teu amor que nunca falha." } },
+            { arc: { texto: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.", ref: "1 Tessalonicenses 5:18", devocional: "A gratidão não depende das circunstâncias, mas é uma decisão de fé. Encontrar motivos para agradecer, mesmo nas dificuldades, é a vontade de Deus.", oracao: "Pai, ajuda-me a ser grato hoje, não importa o que aconteça. Confio que a Tua vontade é boa." } },
+            { arc: { texto: "Cantarei ao Senhor enquanto eu viver; cantarei louvores ao meu Deus enquanto eu existir.", ref: "Salmos 104:33", devocional: "O louvor é a expressão da gratidão. Que sua vida seja uma canção contínua de adoração ao Criador.", oracao: "Senhor, que minhas palavras e pensamentos hoje sejam um louvor a Ti." } },
+            { arc: { texto: "Rendam graças ao Senhor pela sua benignidade e pelas suas maravilhas para com os filhos dos homens!", ref: "Salmos 107:8", devocional: "Pense nas maravilhas que Deus já fez em sua vida e na vida de outros. Ele é um Deus de milagres!", oracao: "Obrigado, Pai, pelas Tuas obras maravilhosas que testemunho todos os dias." } },
+            { arc: { texto: "E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus Pai.", ref: "Colossenses 3:17", devocional: "A gratidão deve permear todas as áreas da nossa vida, transformando nossas ações e palavras em atos de adoração.", oracao: "Senhor, que tudo o que eu fizer hoje seja para a Tua glória e com um coração grato." } },
+            { arc: { texto: "Entrai pelas portas dele com louvor e em seus átrios, com hinos; louvai-o e bendizei o seu nome.", ref: "Salmos 100:4", devocional: "Aproxime-se de Deus com um coração que já está preparado para agradecer. A gratidão abre as portas da Sua presença.", oracao: "Pai, eu entro na Tua presença hoje com um coração cheio de louvor. Obrigado por me acolheres." } },
+            { arc: { texto: "O meu cálice transborda.", ref: "Salmos 23:5", devocional: "Ao final da semana, reflita sobre como Deus não apenas supre suas necessidades, mas o abençoa abundantemente. Sua provisão vai além do necessário.", oracao: "Senhor, obrigado por Tua generosidade que transborda em minha vida. Sou grato por tudo." } }
+        ]},
+        // Semana 2: Perdão
+        { titulo: "Semana do Perdão", descricao: "Aprendendo a liberar e receber o perdão de Deus.", dias: [
+            { arc: { texto: "Se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados e nos purificar de toda injustiça.", ref: "1 João 1:9", devocional: "O perdão de Deus está disponível a todos que se arrependem. A confissão é o primeiro passo para a restauração.", oracao: "Senhor, confesso meus pecados e falhas. Obrigado por Tua fidelidade em me perdoar e purificar." } },
+            { arc: { texto: "Suportando-vos uns aos outros e perdoando-vos uns aos outros, se algum tiver queixa contra outro; assim como Cristo vos perdoou, assim fazei vós também.", ref: "Colossenses 3:13", devocional: "O perdão que recebemos de Cristo é o modelo para o perdão que devemos oferecer aos outros. É um mandamento, não uma opção.", oracao: "Pai, dá-me um coração perdoador. Ajuda-me a liberar o perdão assim como Tu me perdoaste." } },
+            { arc: { texto: "Porque, se perdoardes aos homens as suas ofensas, também vosso Pai celestial vos perdoará a vós.", ref: "Mateus 6:14", devocional: "Há uma conexão direta entre nossa disposição para perdoar e nossa experiência do perdão de Deus. Liberar os outros nos liberta.", oracao: "Senhor, eu escolho perdoar aqueles que me ofenderam. Libera meu coração de toda amargura." } },
+            { arc: { texto: "Antes, sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo.", ref: "Efésios 4:32", devocional: "O perdão deve ser acompanhado de bondade e misericórdia, refletindo o caráter de Deus.", oracao: "Espírito Santo, enche-me de bondade e misericórdia para com todos ao meu redor." } },
+            { arc: { texto: "Não julgueis e não sereis julgados; não condeneis e não sereis condenados; soltai e soltar-vos-ão.", ref: "Lucas 6:37", devocional: "A prática do perdão envolve abrir mão do nosso direito de julgar e condenar, entregando a justiça nas mãos de Deus.", oracao: "Senhor, ajude-me a não julgar, mas a oferecer a mesma graça que recebi de Ti." } },
+            { arc: { texto: "O que encobre as suas transgressões nunca prosperará; mas o que as confessa e deixa alcançará misericórdia.", ref: "Provérbios 28:13", devocional: "O verdadeiro arrependimento não apenas confessa o pecado, mas o abandona. Esse é o caminho para a misericórdia.", oracao: "Pai, não quero esconder minhas falhas. Ajuda-me a confessá-las e a abandoná-las completamente." } },
+            { arc: { texto: "Quanto está longe o Oriente do Ocidente, assim afasta de nós as nossas transgressões.", ref: "Salmos 103:12", devocional: "Reflita na imensidão do perdão de Deus. Quando Ele perdoa, Ele remove nosso pecado para nunca mais ser lembrado.", oracao: "Obrigado, Senhor, por um perdão tão completo e definitivo. Descanso na Tua graça redentora." } }
+        ]},
+        // Outras semanas...
+        { titulo: "Semana da Confiança", descricao: "Fortalecendo a fé e a dependência em Deus.", dias: [
+            { arc: { texto: "Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.", ref: "Provérbios 3:5", devocional: "A confiança total em Deus significa render nossa lógica e planos a Ele, crendo que Seus caminhos são mais altos.", oracao: "Senhor, eu entrego meu coração e meus planos a Ti. Guia-me na Tua sabedoria." } },
+            { arc: { texto: "O Senhor é a minha luz e a minha salvação; a quem temerei? O Senhor é a força da minha vida; de quem me recearei?", ref: "Salmos 27:1", devocional: "Quando Deus é a nossa fonte de luz e força, o medo perde o seu poder. A confiança em Deus dissipa a ansiedade.", oracao: "Pai, Tu és a minha luz. Dissipa toda escuridão e medo do meu coração hoje." } },
+            { arc: { texto: "Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.", ref: "1 Pedro 5:7", devocional: "A confiança é um ato de entrega. Deus nos convida a transferir o peso de nossas preocupações para Ele, pois Ele se importa.", oracao: "Senhor, eu lanço sobre Ti toda a minha ansiedade. Obrigado por cuidares de mim." } },
+            { arc: { texto: "Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão e não se cansarão; caminharão e não se fatigarão.", ref: "Isaías 40:31", devocional: "Esperar no Senhor é um ato de confiança ativa. Essa espera nos fortalece e nos dá uma perspectiva divina sobre as dificuldades.", oracao: "Pai, renova minhas forças enquanto espero em Ti. Ajuda-me a voar acima das minhas circunstâncias." } },
+            { arc: { texto: "O nome do Senhor é uma torre forte; os justos correm para ela e estão seguros.", ref: "Provérbios 18:10", devocional: "Nosso lugar de segurança não é um local físico, mas uma pessoa: o Senhor. Em tempos de perigo, corra para Ele.", oracao: "Senhor Jesus, Tu és minha torre forte. Em Ti, encontro refúgio e segurança." } },
+            { arc: { texto: "Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo.", ref: "Salmos 23:4", devocional: "A confiança não nos isenta dos vales escuros, mas garante a presença constante de Deus conosco, nos guiando através deles.", oracao: "Senhor, mesmo nos momentos mais sombrios, eu confio na Tua presença que me conforta e me guia." } },
+            { arc: { texto: "Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz e não de mal, para vos dar o fim que esperais.", ref: "Jeremias 29:11", devocional: "Descanse na certeza de que os planos de Deus para você são bons. Ele tem um futuro e uma esperança preparados.", oracao: "Obrigado, Pai, pelos Teus bons planos. Ajuda-me a confiar no Teu propósito, mesmo quando não o vejo claramente." } }
+        ]},
+        {
         titulo: "Semana da Paz",
         descricao: "Encontrando a paz de Deus que excede todo entendimento.",
         dias: [
@@ -379,17 +350,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         ]
     }
-];
+    ];
 
     const textoElem = document.getElementById('texto-versiculo');
     const referenciaElem = document.getElementById('referencia-versiculo');
     const devocionalElem = document.getElementById('devocional');
     const anotacoesElem = document.getElementById('anotacoes');
-    const listenButton = document.getElementById('listen-button');
     const copyButton = document.getElementById('copy-button');
+    const nextDayButton = document.getElementById('next-day-button');
+    const prevDayButton = document.getElementById('prev-day-button');
 
-    let currentDayOfYear = (new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24);
-    let displayDay = Math.floor(currentDayOfYear);
+    // MODIFICAÇÃO: Calcular o dia do ano atual e arredondar para um número inteiro.
+    const getDayOfYear = () => Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    
+    const today = getDayOfYear();
+    let displayDay = today;
 
     function getConteudoDoDia(dia) {
         const diaAbsoluto = Math.floor(dia) - 1;
@@ -406,6 +381,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function updateNavButtons() {
+        // MODIFICAÇÃO: Desativa o botão "Próximo Dia" se o dia exibido já for o dia seguinte ao de hoje.
+        if (displayDay >= today + 1) {
+            nextDayButton.disabled = true;
+        } else {
+            nextDayButton.disabled = false;
+        }
+    }
+
     function mostrarConteudo(dia) {
         const { tema, conteudo } = getConteudoDoDia(dia);
         
@@ -416,50 +400,56 @@ document.addEventListener('DOMContentLoaded', () => {
         referenciaElem.textContent = conteudo.ref;
         devocionalElem.innerHTML = `<h3>Reflexão & Oração</h3><p>${conteudo.devocional}<br><br><strong>Oração:</strong> ${conteudo.oracao}</p>`;
 
-        // Carregar anotação salva para este dia
-        const anotacaoSalva = localStorage.getItem(`anotacao_${dia}`);
-        anotacoesElem.value = anotacaoSalva || '';
+        if (dia > today) {
+            anotacoesElem.disabled = true;
+            anotacoesElem.value = '';
+            anotacoesElem.placeholder = "Anotações não são permitidas para dias futuros.";
+        } else {
+            anotacoesElem.disabled = false;
+            anotacoesElem.placeholder = "Escreva aqui sua reflexão ou oração pessoal...";
+            const anotacaoSalva = localStorage.getItem(`anotacao_${dia}`);
+            anotacoesElem.value = anotacaoSalva || '';
+        }
         
-        // Define a ação do botão de ouvir
-        listenButton.onclick = () => {
-            const utterance = new SpeechSynthesisUtterance(`"${conteudo.texto}". ${conteudo.ref}`);
-            utterance.lang = 'pt-BR';
-            speechSynthesis.speak(utterance);
-        };
-        
-        // Atualiza a ação de copiar
         copyButton.onclick = () => {
-             const textoParaCopiar = `"${conteudo.texto}" - ${conteudo.ref}`;
-             navigator.clipboard.writeText(textoParaCopiar).then(() => {
+            const textoParaCopiar = `"${conteudo.texto}" - ${conteudo.ref}`;
+            navigator.clipboard.writeText(textoParaCopiar).then(() => {
                 const originalText = copyButton.textContent;
                 copyButton.textContent = "Copiado!";
                 setTimeout(() => { copyButton.textContent = originalText; }, 2000);
             });
         };
         
-        document.body.style.background = `linear-gradient(135deg, #4facfe, #00f2fe)`;
+        const backgroundIndex = (Math.floor(dia) - 1 + backgrounds.length) % backgrounds.length;
+        document.body.style.background = backgrounds[backgroundIndex];
+
+        // MODIFICAÇÃO: Atualiza o estado dos botões de navegação
+        updateNavButtons();
     }
 
-    // Salva a anotação ao digitar
     anotacoesElem.addEventListener('input', () => {
-        localStorage.setItem(`anotacao_${displayDay}`, anotacoesElem.value);
+        if (!anotacoesElem.disabled) {
+            localStorage.setItem(`anotacao_${displayDay}`, anotacoesElem.value);
+        }
     });
     
-    // Navegação
-    document.getElementById('prev-day-button').addEventListener('click', () => {
+    prevDayButton.addEventListener('click', () => {
         displayDay--;
         mostrarConteudo(displayDay);
     });
 
-    document.getElementById('next-day-button').addEventListener('click', () => {
-        displayDay++;
-        mostrarConteudo(displayDay);
+    nextDayButton.addEventListener('click', () => {
+        // A lógica de desativação agora está na função `updateNavButtons`,
+        // então aqui apenas incrementamos o dia e mostramos o conteúdo.
+        if (!nextDayButton.disabled) {
+            displayDay++;
+            mostrarConteudo(displayDay);
+        }
     });
 
     // Inicialização
     mostrarConteudo(displayDay);
 });
 </script>
-
 </body>
 </html>
