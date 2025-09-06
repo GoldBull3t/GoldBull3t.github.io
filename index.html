@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devocional Diário</title>
+<style>
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        transition: background 1s ease-in-out;
+        color: white;
+    }
+    .container {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        animation: fadeIn 1.2s forwards;
+    }
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+    h1 {
+        font-size: 28px;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    #tema-semana {
+        font-size: 20px;
+        font-weight: 300;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #ffda79; /* Cor de destaque para o tema */
+    }
+    #texto-versiculo {
+        font-size: 22px;
+        line-height: 1.5;
+        font-style: italic;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+        text-align: left;
+    }
+    #referencia-versiculo {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 25px;
+        font-size: 18px;
+    }
+    #versao {
+        padding: 10px 15px;
+        border-radius: 7px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+    .button-group {
+        margin-bottom: 25px;
+    }
+    button {
+        padding: 12px 18px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 5px;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+    button:hover {
+        transform: scale(1.05);
+    }
+    #share-button { background-color: #25D366; color: white; }
+    #speak-button { background-color: #f0932b; color: white; }
+    #copy-button { background-color: #555; color: white; }
+    
+    .extra-section {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 15px;
+        font-size: 16px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+    .extra-section h3 {
+        margin-top: 0;
+        font-size: 18px;
+        color: #0056b3;
+    }
+    #nota-pessoal {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    #save-note-button {
+        width: 100%;
+        background-color: #007BFF;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Devocional Diário</h1>
+    <h2 id="tema-semana"></h2>
+    
+    <select id="versao" aria-label="Selecionar versão da Bíblia">
+        <option value="nvi">Nova Versão Internacional</option>
+        <option value="arc">Almeida Revista e Corrigida</option>
+    </select>
+    
+    <p id="texto-versiculo" aria-live="polite"></p>
+    <span id="referencia-versiculo" aria-live="polite"></span>
+    
+    <div class="button-group">
+        <button id="speak-button" aria-label="Ouvir o versículo">Ouvir</button>
+        <button id="share-button" aria-label="Partilhar no WhatsApp">WhatsApp</button>
+        <button id="copy-button" aria-label="Copiar versículo">Copiar</button>
+    </div>
+    
+    <div id="devocional" class="extra-section"></div>
+    
+    <div id="anotacoes-pessoais" class="extra-section">
+        <h3>Minhas Anotações</h3>
+        <textarea id="nota-pessoal" rows="4" placeholder="Escreva sua reflexão ou oração aqui..."></textarea>
+        <button id="save-note-button">Salvar Anotação</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Nova estrutura de dados com temas semanais
+    const semanasDevocionais = [
+        {
+            tema: "Semana da Gratidão",
+            dias: [
+                { /* Domingo */ arc: { texto: "Deem graças ao Senhor, porque ele é bom; o seu amor dura para sempre.", ref: "1 Crônicas 16:34" }, nvi: { texto: "Deem graças ao Senhor, porque ele é bom; o seu amor dura para sempre.", ref: "1 Crônicas 16:34" }, devocional: "Comece a semana lembrando da bondade e do amor eterno de Deus. A gratidão abre nossos olhos para a Sua fidelidade constante.", oracao: "Senhor, meu coração está cheio de gratidão por quem Tu és. Obrigado pelo Teu amor que nunca falha." },
+                { /* Segunda */ arc: { texto: "Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.", ref: "1 Tessalonicenses 5:18" }, nvi: { texto: "Deem graças em todas as circunstâncias, pois esta é a vontade de Deus para vocês em Cristo Jesus.", ref: "1 Tessalonicenses 5:18" }, devocional: "A gratidão não depende das circunstâncias, mas é uma decisão de fé. Encontrar motivos para agradecer, mesmo nas dificuldades, é a vontade de Deus.", oracao: "Pai, ajuda-me a ser grato hoje, não importa o que aconteça. Confio que a Tua vontade é boa." },
+                { /* Terça */ arc: { texto: "Cantarei ao Senhor enquanto eu viver; cantarei louvores ao meu Deus enquanto eu existir.", ref: "Salmos 104:33" }, nvi: { texto: "Cantarei ao Senhor toda a minha vida; louvarei o meu Deus enquanto eu viver.", ref: "Salmos 104:33" }, devocional: "O louvor é a expressão da gratidão. Que sua vida seja uma canção contínua de adoração ao Criador.", oracao: "Senhor, que minhas palavras e pensamentos hoje sejam um louvor a Ti." },
+                { /* Quarta */ arc: { texto: "Rendam graças ao Senhor pela sua benignidade e pelas suas maravilhas para com os filhos dos homens!", ref: "Salmos 107:8" }, nvi: { texto: "Que eles deem graças ao Senhor por seu amor leal e por suas maravilhas em favor dos homens.", ref: "Salmos 107:8" }, devocional: "Pense nas maravilhas que Deus já fez em sua vida e na vida de outros. Ele é um Deus de milagres!", oracao: "Obrigado, Pai, pelas Tuas obras maravilhosas que testemunho todos os dias." },
+                { /* Quinta */ arc: { texto: "E, quanto fizerdes por palavras ou por obras, fazei tudo em nome do Senhor Jesus, dando por ele graças a Deus Pai.", ref: "Colossenses 3:17" }, nvi: { texto: "Tudo o que fizerem, seja em palavra ou em ação, façam-no em nome do Senhor Jesus, dando por meio dele graças a Deus Pai.", ref: "Colossenses 3:17" }, devocional: "A gratidão deve permear todas as áreas da nossa vida, transformando nossas ações e palavras em atos de adoração.", oracao: "Senhor, que tudo o que eu fizer hoje seja para a Tua glória e com um coração grato." },
+                { /* Sexta */ arc: { texto: "Entrai pelas portas dele com louvor e em seus átrios, com hinos; louvai-o e bendizei o seu nome.", ref: "Salmos 100:4" }, nvi: { texto: "Entrem por suas portas com ações de graças e em seus átrios com louvor; deem-lhe graças e bendigam o seu nome.", ref: "Salmos 100:4" }, devocional: "Aproxime-se de Deus com um coração que já está preparado para agradecer. A gratidão abre as portas da Sua presença.", oracao: "Pai, eu entro na Tua presença hoje com um coração cheio de louvor. Obrigado por me acolheres." },
+                { /* Sábado */ arc: { texto: "O meu cálice transborda.", ref: "Salmos 23:5" }, nvi: { texto: "O meu cálice transborda.", ref: "Salmos 23:5" }, devocional: "Ao final da semana, reflita sobre como Deus não apenas supre suas necessidades, mas o abençoa abundantemente. Sua provisão vai além do necessário.", oracao: "Senhor, obrigado por Tua generosidade que transborda em minha vida. Sou grato por tudo." },
+            ]
+        }
+        // Você pode adicionar mais objetos de "semana" aqui...
+    ];
+
+    // Referências aos elementos do DOM
+    const temaSemanaElem = document.getElementById('tema-semana');
+    const textoElem = document.getElementById('texto-versiculo');
+    const referenciaElem = document.getElementById('referencia-versiculo');
+    const devocionalElem = document.getElementById('devocional');
+    const versaoSelect = document.getElementById('versao');
+    const copyButton = document.getElementById('copy-button');
+    const speakButton = document.getElementById('speak-button');
+    const notaPessoalTextarea = document.getElementById('nota-pessoal');
+    const saveNoteButton = document.getElementById('save-note-button');
+    
+    let versaoAtual = localStorage.getItem('versaoPreferida') || 'nvi';
+    versaoSelect.value = versaoAtual;
+    let typeWriterInterval;
+
+    function diaDoAno() {
+        const agora = new Date();
+        const inicioAno = new Date(agora.getFullYear(), 0, 0);
+        return Math.floor((agora - inicioAno) / (1000 * 60 * 60 * 24));
+    }
+    
+    function animateText(element, text, speed = 35) {
+        clearInterval(typeWriterInterval);
+        let i = 0;
+        element.innerHTML = '';
+        typeWriterInterval = setInterval(() => {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typeWriterInterval);
+            }
+        }, speed);
+    }
+
+    function falarTexto(texto) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel(); // Cancela falas anteriores
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'pt-BR';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Seu navegador não suporta a função de áudio.");
+        }
+    }
+
+    function mostrarConteudo() {
+        const diaAtualDoAno = diaDoAno();
+        const semanaDoAno = Math.floor((diaAtualDoAno - 1) / 7);
+        const diaDaSemana = new Date().getDay(); // Domingo = 0, Segunda = 1, etc.
+        
+        const semana = semanasDevocionais[semanaDoAno % semanasDevocionais.length];
+        const dia = semana.dias[diaDaSemana];
+        const conteudo = dia[versaoAtual];
+
+        // Atualiza o tema da semana
+        temaSemanaElem.textContent = semana.tema;
+
+        // Atualiza o versículo e a animação
+        const textoCompleto = `"${conteudo.texto}"`;
+        animateText(textoElem, textoCompleto);
+        referenciaElem.textContent = conteudo.ref;
+        
+        // Atualiza o devocional
+        devocionalElem.innerHTML = `<h3>Reflexão & Oração</h3><p>${dia.devocional}<br><br><strong>Oração:</strong> ${dia.oracao}</p>`;
+        
+        // Configura o botão de ouvir
+        speakButton.onclick = () => falarTexto(conteudo.texto);
+
+        // Carrega a anotação pessoal salva
+        const notaKey = `nota-${new Date().getFullYear()}-${diaAtualDoAno}`;
+        notaPessoalTextarea.value = localStorage.getItem(notaKey) || '';
+    }
+
+    // Event Listeners
+    versaoSelect.addEventListener('change', () => {
+        versaoAtual = versaoSelect.value;
+        localStorage.setItem('versaoPreferida', versaoAtual);
+        mostrarConteudo();
+    });
+
+    document.getElementById('share-button').addEventListener('click', () => {
+        const textoParaCompartilhar = `${textoElem.textContent} - ${referenciaElem.textContent}`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(textoParaCompartilhar)}`, '_blank', 'noopener,noreferrer');
+    });
+
+    copyButton.addEventListener('click', () => {
+        const textoParaCopiar = `${textoElem.textContent} - ${referenciaElem.textContent}`;
+        navigator.clipboard.writeText(textoParaCopiar).then(() => {
+            const originalText = copyButton.textContent;
+            copyButton.textContent = "Copiado!";
+            copyButton.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+                copyButton.textContent = originalText;
+                copyButton.style.backgroundColor = '#555';
+            }, 2000);
+        });
+    });
+
+    saveNoteButton.addEventListener('click', () => {
+        const diaAtualDoAno = diaDoAno();
+        const notaKey = `nota-${new Date().getFullYear()}-${diaAtualDoAno}`;
+        localStorage.setItem(notaKey, notaPessoalTextarea.value);
+
+        const originalText = saveNoteButton.textContent;
+        saveNoteButton.textContent = "Salvo!";
+        saveNoteButton.style.backgroundColor = '#28a745';
+        setTimeout(() => {
+            saveNoteButton.textContent = originalText;
+            saveNoteButton.style.backgroundColor = '#007BFF';
+        }, 2000);
+    });
+    
+    // Inicialização
+    const g = gradientes[new Date().getDay()];
+    document.body.style.background = `linear-gradient(135deg, ${g[0]}, ${g[1]})`;
+    mostrarConteudo();
+});
+</script>
+
+</body>
+</html>
